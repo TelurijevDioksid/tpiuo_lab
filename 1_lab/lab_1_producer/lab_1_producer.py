@@ -36,7 +36,7 @@ def add_to_batch(batch: EventDataBatch, after):
     print(response)
     if response.ok:
         data = response.json()
-        for post in data["data"]["childern"]:
+        for post in data["data"]["children"]:
             batch.add(EventData(json.dumps(post).encode("utf-8")))
         after = data["data"]["after"]
         return after

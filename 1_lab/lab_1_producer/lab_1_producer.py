@@ -28,7 +28,7 @@ token_response = requests.post(
 )
 token = token_response.json()["access_token"]
 headers["Authorization"] = f"bearer {token}"
-
+          
 def add_to_batch(batch: EventDataBatch, after):
     params = { "after": after, "limit": 10 }
     response = requests.get(url, headers=headers, params=params)

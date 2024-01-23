@@ -22,7 +22,6 @@ storage_account_connection_str = (
     "EndpointSuffix=core.windows.net"
 )
 
-print(storage_account_connection_str)
 data_lake_service_client = DataLakeServiceClient.from_connection_string(
     conn_str=storage_account_connection_str
 )

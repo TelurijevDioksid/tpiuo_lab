@@ -3,10 +3,11 @@ import asyncio
 import requests
 from azure.eventhub import EventHubProducerClient, EventData, EventDataBatch
 
-connection_str = "Endpoint=sb://tr-ehns-tpiuo.servicebus \
-    .windows.net/;SharedAccessKeyName=RootManageSharedAc \
-    cessKey;SharedAccessKey=ALnbtW1QVgn/2FDqdM436WSSoW8/ \
-    cL5dX+AEhMUQA28="
+connection_str = (
+    "Endpoint=sb://tr-ehns-tpiuo.servicebus.windows.net/;"
+    "SharedAccessKeyName=RootManageSharedAccessKey;"
+    "SharedAccessKey=ALnbtW1QVgn/2FDqdM436WSSoW8/cL5dX+AEhMUQA28="
+)
 eventhub_name = "tr-eh-tpiou"
 url = "https://oauth.reddit.com/r/dataengineering/top.json?limit=10&t=all"
 auth = requests.auth.HTTPBasicAuth(

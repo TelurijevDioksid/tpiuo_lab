@@ -46,13 +46,10 @@ def on_event_batch(pc, events: List[EventData]):
             print("New bucket: " + new_bucket.name)
         file_client = bucket_client.get_file_client(str(file_counter))
         file_client.create_file()
-        event_bytes = str(event).encode("utf-8")
-        file_client.append_data(
-            data=event_bytes,
-            offset=0,
-            length=len(event_bytes)
-        )
-        file_client.flush_data(len(event_bytes))
+        event_b = str(event).encode("utf-8")
+        event_b_len = len(event_b)
+        file_client.append_data(event_b, 0, event_b_len)
+        file_client.flush_data(event_b_len)
         file_counter += 1
 
 

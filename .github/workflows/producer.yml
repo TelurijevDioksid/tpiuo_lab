@@ -1,4 +1,4 @@
-name: Producer Docker Image CI
+name: Consumer Docker Image CI
 
 on:
   push:
@@ -10,9 +10,12 @@ jobs:
     name: Editorconfig job
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: editorconfig-checker/action-editorconfig-checker@main
-      - run: editorconfig-checker
+      - name: Chekout repo
+        uses: actions/checkout@v3
+      - name: Editorconfig check
+        uses: editorconfig-checker/action-editorconfig-checker@main
+        with:
+          editorconfig_file: .editorconfig
 
   linters:
     name: Linters job
@@ -20,14 +23,14 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
-      - name: Set up Python
+      - name: Setup Python
         uses: actions/setup-python@v1
         with:
           python-version: 3.9
-      - name: Install Python dependencies 
-      - run: pip install black flake8
+      - name: Install black, flake8 dependencie 
+        run: pip install black flake8
       - name: Run linters
-      - uses: wearerequired/lint-action@v2
+        uses: wearerequired/lint-action@v2
         with:
           black: true
           flake8: true
@@ -38,9 +41,9 @@ jobs:
     needs: [linters, editorconfig]
     steps:
       - name: Checkout repo
-      - uses: actions/checkout@v2
-      - name: Log in into Azure 
-      - uses: azure/login@v1
+        uses: actions/checkout@v2
+      - name: Azure login 
+        uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       - name: Push image to acr
@@ -48,6 +51,6 @@ jobs:
         with:
           appSourcePath: ${{ github.workspace }}
           acrName: trcrferlab
-          containerAppName: tr-consumer-tpiuo
+          containerAppName: tr-producer-tpiuo
           resourceGroup: TPIUO-labosi
           dockerfilePath: 1_lab/lab_1_producer/Dockerfile

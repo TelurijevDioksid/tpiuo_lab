@@ -5,16 +5,16 @@ from typing import List
 from azure.storage.filedatalake import DataLakeServiceClient
 from azure.core.exceptions import ResourceNotFoundError
 
-connection_str = "Endpoint=sb://tr-ehns-tpiuo.servicebus.windows \
-    .net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAc \
+connection_str = "Endpoint=sb://tr-ehns-tpiuo.servicebus.windows\
+    .net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAc\
     cessKey=ALnbtW1QVgn/2FDqdM436WSSoW8/cL5dX+AEhMUQA28="
 eventhub_name = "tr-eh-tpiou"
 consumer_group = "$Default"
 storage_account_name = "trredditstorage"
 storage_container_name = "trredditcontainer"
-storage_account_connection_str = "DefaultEndpointsProtocol=https; \
-    AccountName=trredditstorage;AccountKey=Xvd5NsR3V6YSo68+CY2kRS \
-    pR08qKCpYjsuJ1KG4M+85FfNZ234n/2cEUGg39WBWCeFE1Pkgpem/B+AStgf2 \
+storage_account_connection_str = "DefaultEndpointsProtocol=https;\
+    AccountName=trredditstorage;AccountKey=Xvd5NsR3V6YSo68+CY2kRS\
+    pR08qKCpYjsuJ1KG4M+85FfNZ234n/2cEUGg39WBWCeFE1Pkgpem/B+AStgf2\
     m4w==;EndpointSuffix=core.windows.net"
 
 print(storage_account_connection_str)

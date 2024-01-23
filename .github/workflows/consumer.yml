@@ -10,12 +10,9 @@ jobs:
     name: Editorconfig job
     runs-on: ubuntu-latest
     steps:
-      - name: Chekout repo
-        uses: actions/checkout@v3
-      - name: Editorconfig check
-        uses: editorconfig-checker/action-editorconfig-checker@main
-        with:
-          editorconfig_file: .editorconfig
+      - uses: actions/checkout@v2
+      - uses: editorconfig-checker/action-editorconfig-checker@main
+      - run: editorconfig-checker
 
   linters:
     name: Linters job

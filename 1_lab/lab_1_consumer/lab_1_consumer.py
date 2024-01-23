@@ -5,12 +5,17 @@ from datetime import datetime
 from azure.storage.filedatalake import DataLakeServiceClient
 from azure.core.exceptions import ResourceNotFoundError
 
-connection_str = "Endpoint=sb://tr-ehns-tpiuo.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=ALnbtW1QVgn/2FDqdM436WSSoW8/cL5dX+AEhMUQA28="
+connection_str = "Endpoint=sb://tr-ehns-tpiuo.servicebus.windows \
+    .net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAc \
+    cessKey=ALnbtW1QVgn/2FDqdM436WSSoW8/cL5dX+AEhMUQA28="
 eventhub_name = "tr-eh-tpiou"
 consumer_group = "$Default"
 storage_account_name = "trredditstorage"
 storage_container_name = "trredditcontainer"
-storage_account_connection_str = "DefaultEndpointsProtocol=https;AccountName=trredditstorage;AccountKey=Xvd5NsR3V6YSo68+CY2kRSpR08qKCpYjsuJ1KG4M+85FfNZ234n/2cEUGg39WBWCeFE1Pkgpem/B+AStgf2m4w==;EndpointSuffix=core.windows.net"
+storage_account_connection_str = "DefaultEndpointsProtocol=https; \
+    AccountName=trredditstorage;AccountKey=Xvd5NsR3V6YSo68+CY2kRS \
+    pR08qKCpYjsuJ1KG4M+85FfNZ234n/2cEUGg39WBWCeFE1Pkgpem/B+AStgf2 \
+    m4w==;EndpointSuffix=core.windows.net"
 
 data_lake_service_client = DataLakeServiceClient.from_connection_string(
     conn_str=storage_account_connection_str
@@ -24,11 +29,13 @@ file_system_client = data_lake_service_client.get_file_system_client(
 def on_event_batch(pc, events: List[EventData]):
     file_counter = 0
     for event in events:
-        post = json.loads(event.body_as_str(encoding='UTF-8'))
+        post = json.loads(event.body_as_str(encoding="UTF-8"))
         creation = post["data"]["created_utc"]
         creation_date = datetime.utcfromtimestamp(creation)
         bucket_client = file_system_client.get_directory_client(
-            f"{creation_date.year}/{creation_date.month}/{creation_date.day}/{creation_date.hour}/{creation_date.minute}"
+            f"{creation_date.year}/{creation_date.month}/"
+            f"{creation_date.day}/{creation_date.hour}"
+            f"/{creation_date.minute}"
         )
         try:
             dir_props = bucket_client.get_directory_properties()
@@ -40,7 +47,11 @@ def on_event_batch(pc, events: List[EventData]):
         file_client = bucket_client.get_file_client(str(file_counter))
         file_client.create_file()
         event_bytes = str(event).encode("utf-8")
-        file_client.append_data(data=event_bytes, offset=0, length=len(event_bytes))
+        file_client.append_data(
+            data=event_bytes,
+            offset=0,
+            length=len(event_bytes)
+        )
         file_client.flush_data(len(event_bytes))
         file_counter += 1
 

@@ -1,6 +1,6 @@
 import json
-import requests
 import asyncio
+import requests
 from azure.eventhub import EventHubProducerClient, EventData, EventDataBatch
 
 connection_str = "Endpoint=sb://tr-ehns-tpiuo.servicebus \

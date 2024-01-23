@@ -1,7 +1,7 @@
 import json
-from typing import List
 from azure.eventhub import EventHubConsumerClient, EventData
 from datetime import datetime
+from typing import List
 from azure.storage.filedatalake import DataLakeServiceClient
 from azure.core.exceptions import ResourceNotFoundError
 

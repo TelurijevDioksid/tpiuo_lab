@@ -1,5 +1,5 @@
-import requests
 import json
+import requests
 import asyncio
 from azure.eventhub import EventHubProducerClient, EventData, EventDataBatch
 

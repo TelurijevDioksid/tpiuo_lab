@@ -1,5 +1,4 @@
 import json
-
 from typing import List
 from azure.eventhub import EventHubConsumerClient, PartitionContext, EventData
 from datetime import datetime
